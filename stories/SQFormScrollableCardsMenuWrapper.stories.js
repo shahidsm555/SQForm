@@ -20,7 +20,7 @@ export default {
 export const sqFormScrollableCardsMenuWrapper = () => {
   return (
     <div style={{width: '100%', height: '100%'}}>
-      <SQFormScrollableCardsMenuWrapper title="[selected user]">
+      <SQFormScrollableCardsMenuWrapper title="The quick brown fox jumped over the fence">
         <ScrollableDetails label="Details" value="details" />
         <ScrollablePermissions label="Permissions" value="permissions" />
       </SQFormScrollableCardsMenuWrapper>
