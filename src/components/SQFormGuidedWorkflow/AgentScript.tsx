@@ -1,20 +1,18 @@
 import React from 'react';
-import {Grid} from '@material-ui/core';
-import {Section, SectionBody} from 'scplus-shared-components';
+import {Section, SectionBody, ScriptedText} from 'scplus-shared-components';
 import Header from './Header';
-import {OutcomePropTypes} from './PropTypes';
+import {AgentScriptPropTypes} from './PropTypes';
 
-function OutcomeForm({
+function AgentScript({
   actionButton,
-  FormElements,
   title,
   infoText,
   warningText,
   errorText,
   successText,
   isFailedState,
-  muiGridProps = {}
-}) {
+  text,
+}: AgentScriptPropTypes): JSX.Element {
   return (
     <Section>
       <Header
@@ -27,14 +25,10 @@ function OutcomeForm({
         isFailedState={isFailedState}
       />
       <SectionBody>
-        <Grid {...muiGridProps} container spacing={muiGridProps.spacing ?? 2}>
-          {FormElements}
-        </Grid>
+        <ScriptedText text={text} />
       </SectionBody>
     </Section>
   );
 }
 
-OutcomeForm.propTypes = OutcomePropTypes;
-
-export default OutcomeForm;
+export default AgentScript;

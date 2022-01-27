@@ -1,114 +1,114 @@
-import PropTypes from 'prop-types';
+import type {FormikHelpers} from 'formik';
+import type {ObjectShape} from 'yup/lib/object';
+import type {GridProps} from '@material-ui/core';
 
-export const HeaderPropTypes = {
+export interface HeaderPropTypes {
   /** Optional Text button to display in the section header */
-  actionButton: PropTypes.node,
+  actionButton?: React.ReactNode;
   /** Title to display in the section header */
-  title: PropTypes.string.isRequired,
+  title: string;
   /** Informative text to display as a subheader next to the Title */
-  infoText: PropTypes.string,
+  infoText?: string;
   /** Warning text to display as a subheader next to the Title */
-  warningText: PropTypes.string,
+  warningText?: string;
   /** Error text to display as a subheader next to the Title
    * if the form is in a failed state
    */
-  errorText: PropTypes.string,
+  errorText?: string;
   /** Success text to display as a subheader next to the Title
    * if the form has no errors and is in a Valid state
    */
-  successText: PropTypes.string,
+  successText?: string;
   /** This prop is controlled by taskModules.isFailedState
    * Red failure text to display as a subheader next to the Title
    * if the form is in a failed state where the user cannot continue
    */
-  isFailedState: PropTypes.bool,
-};
+  isFailedState?: boolean;
+}
 
-export const AgentScriptPropTypes = {
+export interface AgentScriptPropTypes extends HeaderPropTypes {
   /** Scripted Text for the user to read */
-  text: PropTypes.string.isRequired,
-  ...HeaderPropTypes,
-};
+  text: string;
+}
 
-export const OutcomePropTypes = {
+export interface OutcomePropTypes extends HeaderPropTypes {
   /** SQForm Elements to render inside the Form */
-  FormElements: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.arrayOf(PropTypes.node),
-  ]).isRequired,
+  FormElements: React.ReactNode | React.ReactNode[];
   /** Any props from MUI <Grid> component */
-  muiGridProps: PropTypes.object,
-  ...HeaderPropTypes,
-};
+  muiGridProps?: GridProps;
+}
 
-export const FormikProps = {
+export interface FormikProps {
   /** Form Entity Object aka initial values of the form */
-  initialValues: PropTypes.object.isRequired,
+  initialValues: Record<string, unknown>;
   /** Form Submission Handler | @typedef onSubmit: (values: Values, formikBag: FormikBag, context) => void | Promise<any> */
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit?: (
+    values: Record<string, unknown>,
+    formikBag: FormikHelpers<Record<string, unknown>>,
+    context: unknown
+  ) => void | Promise<unknown>;
   /** Yup validation schema shape */
-  validationSchema: PropTypes.object,
-};
+  validationSchema?: ObjectShape;
+}
 
-export const TaskModuleProps = {
+export interface TaskModuleProps {
   /** Unique name used as a key for managing expansion state within Accordion */
-  name: PropTypes.string.isRequired,
+  name: string;
   /** Title text */
-  title: PropTypes.string.isRequired,
+  title: string;
   /** Subtitle text - Each Subtitle is separated by a pipe "|" */
-  subtitles: PropTypes.arrayOf(PropTypes.string),
+  subtitles?: string[];
   /** Panel is disabled, the user cannot toggle the panel while disabled */
-  isDisabled: PropTypes.bool,
+  isDisabled?: boolean;
   /** Is initially expanded */
-  isInitiallyExpanded: PropTypes.bool,
+  isInitiallyExpanded?: boolean;
   /** Controlled loading */
-  isLoading: PropTypes.bool,
+  isLoading?: boolean;
   /** Custom loading message for controlled loading */
-  isLoadingMessage: PropTypes.string,
+  isLoadingMessage?: string;
   /** expandPanel callback synchronizes consumer state with Accordion state.
    * Requires isPanelExpanded prop. */
-  expandPanel: PropTypes.func,
+  expandPanel: (isPanelExpanded: unknown, ...args: any[]) => void;
   /** Optional prop for the consumer to define the cards open/close state.
    * Requires expandPanel prop. */
-  isPanelExpanded: PropTypes.bool,
+  isPanelExpanded?: boolean;
   /** Optional click handler if you want to perform a side effect on click */
-  onClick: PropTypes.func,
+  onClick: () => void;
   /** Reset button text */
-  resetButtonText: PropTypes.string,
+  resetButtonText?: string;
   /** Submit button text */
-  submitButtonText: PropTypes.string,
+  submitButtonText?: string;
   /** Flag for if the form is in a failed state where the user cannot continue */
-  isFailedState: PropTypes.bool,
+  isFailedState?: boolean;
   /** Manually disable submit button */
-  isSubmitButtonDisabled: PropTypes.bool,
+  isSubmitButtonDisabled?: boolean;
   /** The props used to configure SQForm */
-  formikProps: PropTypes.shape(FormikProps).isRequired,
+  formikProps: FormikProps;
   /** The props used to configure the Scripted Text section */
-  scriptedTextProps: PropTypes.shape(AgentScriptPropTypes).isRequired,
+  scriptedTextProps: AgentScriptPropTypes;
   /** The props used to configure the Outcome form section */
-  outcomeProps: PropTypes.shape(OutcomePropTypes).isRequired,
-};
+  outcomeProps: OutcomePropTypes;
+}
 
-export const GuidedWorkflowProps = {
+export interface GuidedWorkflowProps {
   /** Main Title */
-  mainTitle: PropTypes.string.isRequired,
+  mainTitle: string;
   /** Main Subtitle Informative Text */
-  mainSubtitle: PropTypes.string,
+  mainSubtitle?: string;
   /** Number of tasks completed (Default is zero) */
-  initialCompletedTasks: PropTypes.number,
+  initialCompletedTasks?: number;
   /**
    * Disables all Task Modules except the current Active Task module
    * This prevents the user from returning to a previous task module
    */
-  isStrictMode: PropTypes.bool,
+  isStrictMode?: boolean;
   /**
    * Callback function which passes the error as an argument for the consumer to handle
    * Usually the consumer will render an alert to signal an error occured
    */
-  onError: PropTypes.func.isRequired,
+  onError: (error: Error) => void;
   /** Task Module configuration Object(s) */
-  taskModules: PropTypes.arrayOf(PropTypes.shape(TaskModuleProps).isRequired)
-    .isRequired,
+  taskModules: TaskModuleProps[];
   /** An object of css-in-js style properties to be passed */
-  containerStyles: PropTypes.object,
-};
+  containerStyles: Record<string, unknown>;
+}
